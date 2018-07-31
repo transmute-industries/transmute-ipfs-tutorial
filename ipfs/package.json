@@ -1,0 +1,23 @@
+{
+  "name": "transmute-ipfs-tutorial",
+  "version": "1.0.0",
+  "description": "## What is IPFS?",
+  "main": "client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/transmute-industries/transmute-ipfs-tutorial.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/transmute-industries/transmute-ipfs-tutorial/issues"
+  },
+  "homepage": "https://github.com/transmute-industries/transmute-ipfs-tutorial#readme",
+  "dependencies": {
+    "ipfs": "^0.31.1",
+    "ipfs-api": "^22.2.4"
+  }
+}
