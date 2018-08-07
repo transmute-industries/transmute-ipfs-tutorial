@@ -25,7 +25,7 @@ Once the local node has started, visit:
 ```
 http://localhost:8080/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
 http://localhost:5001/api/v0/id
-http://localhost:5001/api/v0/cat?arg=QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG
+http://localhost:5001/api/v0/ls?arg=QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG
 http://localhost:5001/webui
 ```
 
