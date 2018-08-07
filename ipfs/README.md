@@ -8,7 +8,13 @@ You should really read more about it here: [https://ipfs.io/](https://ipfs.io/).
 
 ### [Install IPFS](https://ipfs.io/docs/install/)
 
-Once its installed, you need to start a local node:
+Once its installed, you need to init ipfs
+
+```
+ipfs init
+```
+
+and start a local node:
 
 ```
 ipfs daemon
