@@ -23,8 +23,11 @@ ipfs daemon
 Once the local node has started, visit:
 
 <http://localhost:8080/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme>
+
 <http://localhost:5001/api/v0/id>
+
 <http://localhost:5001/api/v0/ls?arg=QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG>
+
 <http://localhost:5001/webui>
 
 The service running on `8080` is the Gateway Server.
@@ -35,8 +38,11 @@ The service running on `5001` is the API Server.
 In order to understand the magic of IPFS, lets look at the same hashes served from a different location:
 
 <https://ipfs.infura.io/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme>
+
 <https://ipfs.infura.io:5001/api/v0/id>
+
 <https://ipfs.infura.io:5001/api/v0/cat?arg=QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG>
+
 
 The hashes are the same, so the content is the same, regardless of location of the server. This is what is meant by content addressing. This allows for apps to request content from any server, including local servers, by hash.
 
