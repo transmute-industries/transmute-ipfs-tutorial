@@ -32,6 +32,7 @@ const reducer = (state, event) => {
   }
 };
 
+// like describe but for smart contracts
 contract('AppStore', accounts => {
   it('constructor works', async () => {
     const storage = await AppStore.deployed();
@@ -39,7 +40,6 @@ contract('AppStore', accounts => {
   });
 
   it('works with the transmute-framework', async () => {
-    const storage = await AppStore.deployed();
     const eventStore = new T.EventStore({
       eventStoreArtifact: AppStore,
       ...transmuteConfig
@@ -61,13 +61,14 @@ contract('AppStore', accounts => {
         message: 'hello world'
       }
     );
-    // assert(typeof receipt.meta !== undefined);
+    assert(typeof receipt.meta !== undefined);
 
     // syncing updates the model state
-    // await streamModel.sync(streamModel.state);
-    // assert.deepEqual(streamModel.state.model, {
-    //   messages: ['hello world']
-    // });
+    await streamModel.sync();
+
+    assert.deepEqual(streamModel.state.model, {
+      messages: ['hello world']
+    });
 
     await eventStore.write(
       accounts[0],
@@ -78,8 +79,6 @@ contract('AppStore', accounts => {
         message: 'event sourcing rocks!'
       }
     );
-    // await streamModel.sync(streamModel.state);
-
     await eventStore.write(
       accounts[0],
       {
@@ -89,19 +88,15 @@ contract('AppStore', accounts => {
         message: 'so does redux!'
       }
     );
-
-    // console.log('');
-
-    let eventCount = (await eventStore.eventStoreContractInstance.count.call()).toNumber();
-    // console.log(eventCount)
+    // calling sync when no changes have occurred does nothing.
     await streamModel.sync();
-    // console.log(streamModel.state.model);
-    // await streamModel.sync();
-    // console.log(streamModel.state.model);
-    // await streamModel.sync();
-    // console.log(streamModel.state.model);
-    // assert.deepEqual(streamModel.state.model, {
-    //   messages: ['hello world', 'event sourcing rocks!']
-    // });
+    await streamModel.sync();
+    assert.deepEqual(streamModel.state.model, {
+      messages: ['hello world', 'event sourcing rocks!', 'so does redux!']
+    });
+    await streamModel.sync();
+    assert.deepEqual(streamModel.state.model, {
+      messages: ['hello world', 'event sourcing rocks!', 'so does redux!']
+    });
   });
 });
