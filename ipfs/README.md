@@ -8,7 +8,13 @@ You should really read more about it here: [https://ipfs.io/](https://ipfs.io/).
 
 ### [Install IPFS](https://ipfs.io/docs/install/)
 
-Once its installed, you need to start a local node:
+Once its installed, you need to init ipfs
+
+```
+ipfs init
+```
+
+and start a local node:
 
 ```
 ipfs daemon
@@ -16,12 +22,13 @@ ipfs daemon
 
 Once the local node has started, visit:
 
-```
-http://localhost:8080/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
-http://localhost:5001/api/v0/id
-http://localhost:5001/api/v0/cat?arg=QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG
-http://localhost:5001/webui
-```
+<http://localhost:8080/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme>
+
+<http://localhost:5001/api/v0/id>
+
+<http://localhost:5001/api/v0/ls?arg=QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG>
+
+<http://localhost:5001/webui>
 
 The service running on `8080` is the Gateway Server.
 The service running on `5001` is the API Server.
@@ -30,11 +37,12 @@ The service running on `5001` is the API Server.
 
 In order to understand the magic of IPFS, lets look at the same hashes served from a different location:
 
-```
-https://ipfs.infura.io/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
-https://ipfs.infura.io:5001/api/v0/id
-https://ipfs.infura.io:5001/api/v0/cat?arg=QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG
-```
+<https://ipfs.infura.io/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme>
+
+<https://ipfs.infura.io:5001/api/v0/id>
+
+<https://ipfs.infura.io:5001/api/v0/cat?arg=QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG>
+
 
 The hashes are the same, so the content is the same, regardless of location of the server. This is what is meant by content addressing. This allows for apps to request content from any server, including local servers, by hash.
 
@@ -77,11 +85,9 @@ Now retrieve the image:
 
 ```
 curl 127.0.0.1:5001/api/v0/cat?arg=QmcX5MyEF5UyqLGQWppBb4JmxnruBFjBpRjUzhCKfCmhmk >> nyan-from-ipfs.gif
-
-# or use the gateway
-
-http://127.0.0.1:8080/ipfs/QmcX5MyEF5UyqLGQWppBb4JmxnruBFjBpRjUzhCKfCmhmk
 ```
+
+or use the gateway <http://127.0.0.1:8080/ipfs/QmcX5MyEF5UyqLGQWppBb4JmxnruBFjBpRjUzhCKfCmhmk>
 
 ### Running an IPFS Node via Node.JS 
 
