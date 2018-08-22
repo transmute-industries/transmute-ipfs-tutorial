@@ -1,0 +1,20 @@
+{
+  "name": "truffle-testnet-deployment",
+  "version": "1.0.0",
+  "description": "In this tutorial, we'll test and deploy some smart contracts to a live testnet with truffle.",
+  "main": "truffle-config.js",
+  "scripts": {
+    "test": "truffle test",
+    "generate:wallet": "node ./scripts/generate-mneumonic.js",
+    "view:wallet:address": "node ./scripts/view-address.js",
+    "deploy:rinkeby": "truffle deploy --network rinkeby"
+  },
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "truffle-hdwallet-provider": "^0.0.6",
+    "web3": "^0.19.1"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}
