@@ -20,61 +20,89 @@ const getAccounts = () => {
   });
 };
 
+const StreamModel = require("./lib");
+
 describe("EventEmitter", () => {
   let accounts;
   let ee;
+
   before(async () => {
     accounts = await getAccounts();
     ee = await EventEmitter.deployed();
   });
+
   it("should have a working constructor", async () => {
     assert(accounts[0] === (await ee.owner()));
   });
 
-  it("should emit an event", async () => {
-    // console.log(ee);
+  it("should accumulate events", async () => {
+    let sm = new StreamModel(web3, ee);
+    assert(sm.state.lastBlock === null);
+    await sm.sync();
+    // console.log(sm.state);
 
-    const tag1 = "hello";
-    const tag2 = "world";
+    let eventCount = sm.state.events.length;
+    console.log(sm.state.events.length)
 
-    let rec = await ee.emitBytes32(tag1, {
+    let rec = await ee.emitBytes32("yolo", {
       from: accounts[0]
     });
 
-    let tag = Buffer.from(rec.logs[0].args.tag.replace("0x", ""), "hex")
-      .toString()
-      .replace(/\u0000/g, "");
+    await sm.sync();
 
-    assert(tag === tag1);
+    console.log(sm.state.events.length)
 
-    rec = await ee.emitBytes32(tag2, {
-      from: accounts[0]
-    });
+    // console.log(sm.state);
 
-    tag = Buffer.from(rec.logs[0].args.tag.replace("0x", ""), "hex")
-      .toString()
-      .replace(/\u0000/g, "");
+    // assert(sm.state.events.length === eventCount + 1);
 
-    assert(tag === tag2);
-
-    console.log(web3.eth.blockNumber);
+    // assert(sm.state.lastBlock === null);
   });
 
-  it("supports looking up all events", async () => {
-    let allEventLogs = [];
-    let latestBlock = web3.eth.blockNumber;
-    const allEvents = ee.allEvents({
-      fromBlock: 0,
-      toBlock: "latest"
-    });
-    await new Promise((resolve, reject) => {
-      allEvents.watch((err, res) => {
-        allEventLogs.push(res);
-        if ((res.blockNumber = latestBlock)) {
-          resolve(allEventLogs);
-        }
-      });
-    });
-    console.log(allEventLogs);
-  });
+  // it("should emit an event", async () => {
+  //   // console.log(ee);
+
+  //   const tag1 = "hello";
+  //   const tag2 = "world";
+
+  //   let rec = await ee.emitBytes32(tag1, {
+  //     from: accounts[0]
+  //   });
+
+  //   let tag = Buffer.from(rec.logs[0].args.tag.replace("0x", ""), "hex")
+  //     .toString()
+  //     .replace(/\u0000/g, "");
+
+  //   assert(tag === tag1);
+
+  //   rec = await ee.emitBytes32(tag2, {
+  //     from: accounts[0]
+  //   });
+
+  //   tag = Buffer.from(rec.logs[0].args.tag.replace("0x", ""), "hex")
+  //     .toString()
+  //     .replace(/\u0000/g, "");
+
+  //   assert(tag === tag2);
+
+  //   // console.log(web3.eth.blockNumber);
+  // });
+
+  // it("supports looking up all events", async () => {
+  //   let allEventLogs = [];
+  //   let latestBlock = web3.eth.blockNumber;
+  //   const allEvents = ee.allEvents({
+  //     fromBlock: 0,
+  //     toBlock: "latest"
+  //   });
+  //   await new Promise((resolve, reject) => {
+  //     allEvents.watch((err, res) => {
+  //       allEventLogs.push(res);
+  //       if (res.blockNumber === latestBlock) {
+  //         resolve(allEventLogs);
+  //       }
+  //     });
+  //   });
+  //   console.log(allEventLogs);
+  // });
 });

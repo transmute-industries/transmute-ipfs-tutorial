@@ -6,6 +6,7 @@ contract EventEmitter {
 
     constructor () public {
         owner = msg.sender;
+        emit EmittedTag("created");
     }
 
     event EmittedTag(bytes32 tag);
